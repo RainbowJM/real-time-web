@@ -3,10 +3,13 @@
     padding: 0;
     font-family: sans-serif;
 }
+:root{
+    --background-color: #f8cec6;
+}
 
 body {
     height: 100vh;
-    background: #f8cec6;
+    background: var(--background-color);
 }
 
 header {
@@ -36,21 +39,26 @@ h1 {
     text-align: center;
 }
 
-#enroll section {
+section#enroll {
+    display: flex;
+    place-content: center;
+    width: 40em;
     height: fit-content;
     margin: 0 auto;
-    background-color: red;
+    background: white;
+    border-radius: 25px;
+    padding: 20px;
 }
 
-#enroll form, #chat form {
+section#enroll form, #chat form {
     display: flex;
     gap: 10px;
     justify-content: center;
 }
 
-#enroll form input[type="text"] {
+section#enroll form input[type="text"] {
     font-family: Poppins, system-ui;
-    background: #f5f7fb;
+    background: var(--background-color);
     border: none;
     border-radius: 25px;
     width: 90%;
@@ -60,8 +68,6 @@ h1 {
 form button {
     height: 50px;
     width: 50px;
-    flex-shrink: 0;
-    background: #3aa68b;
     border: none;
     border-radius: 50%;
     display: flex;
@@ -70,7 +76,8 @@ form button {
     cursor: pointer;
 }
 
-form button img {
+form button i {
     height: 20px;
     width: 20px;
+    color: #ff7459;
 }
