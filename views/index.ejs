@@ -7,11 +7,19 @@
 
 <body>
   <header>
-
+    <%- include('./partials/header') %>
   </header>
 
   <main>
-
+    <section id="enroll">
+      <h1>Enter your name:</h1>
+      <form action="/" method="post">
+        <input type="text" name="name" placeholder="Name..." maxlength="15" pattern=".*\S+.*" autofocus required>
+        <button type="submit">
+          <img src="images/sent.png">
+        </button>
+      </form>
+    </section>
   </main>
 
   <footer>

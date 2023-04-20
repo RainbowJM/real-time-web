@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: #f8cec6;
+}
+
+header {
+    width: 100%;
+    padding-left: 8%;
+    padding-right: 8%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+header section {
+    width: 100%;
+    height: 7em;
+    display: flex;
+    align-items: center;
+}
+
+img[target=logo] {
+    width: 100px;
+    cursor: pointer;
+    margin: 30px 0;
+    border-radius: 50%;
+}
+
+h1 {
+    margin: 10px;
+    text-align: center;
+}
+
+#enroll section {
+    height: fit-content;
+    margin: 0 auto;
+    background-color: red;
+}
+
+#enroll form, #chat form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#enroll form input[type="text"] {
+    font-family: Poppins, system-ui;
+    background: #f5f7fb;
+    border: none;
+    border-radius: 25px;
+    width: 90%;
+    padding: 15px 25px;
+}
+
+form button {
+    height: 50px;
+    width: 50px;
+    flex-shrink: 0;
+    background: #3aa68b;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+form button img {
+    height: 20px;
+    width: 20px;
+}
