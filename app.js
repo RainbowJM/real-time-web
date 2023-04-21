@@ -4,8 +4,13 @@ const http = require('http').createServer(app);
 const path = require('path');
 const io = require('socket.io')(http);
 const port = process.env.PORT || 8080
+const bodyParser = require('body-parser')
+// const entities = require("entities")
 
 app.use(express.static(path.resolve('public')));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(express.urlencoded({extended: true}));
 
 // Set view engine
 app.set("views", path.join(__dirname, "views"));

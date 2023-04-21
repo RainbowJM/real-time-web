@@ -11,9 +11,26 @@
     </header>
 
     <main>
-
+        <section id="trivia">
+            <h1>Welcome to Papiamtu Trivia, <%- name %>Trivia</h1>
+            <div id="trivia-container">
+                <div id="trivia-question">
+                    <h2>Question</h2>
+                    <p id="trivia-question-text"></p>
+                </div>
+                <div id="trivia-answers">
+                    <h2>Answers</h2>
+                    <div id="trivia-answers-container">
+                        <button class="trivia-answer" id="trivia-answer-1"></button>
+                        <button class="trivia-answer" id="trivia-answer-2"></button>
+                        <button class="trivia-answer" id="trivia-answer-3"></button>
+                        <button class="trivia-answer" id="trivia-answer-4"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-    
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/script.js"></script>
 </body>
