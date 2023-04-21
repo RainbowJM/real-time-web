@@ -1,2 +1,2 @@
-# real-time-web
+# Papiamentu Trivia
 The real time application
