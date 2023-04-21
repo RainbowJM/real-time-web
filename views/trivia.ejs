@@ -12,7 +12,7 @@
 
     <main>
         <section id="trivia">
-            <h1>Welcome to Papiamtu Trivia, <%- name %>Trivia</h1>
+            <h1>Welcome to Papiamtu Trivia, <%- name %></h1>
             <div id="trivia-container">
                 <div id="trivia-question">
                     <h2>Question</h2>
@@ -29,6 +29,13 @@
                 </div>
             </div>
         </section>
+        <section id="chat">
+            <ul></ul>
+            <form class="message-input">
+              <input type="text" id="message-input" autocomplete="off" placeholder="Type your message..">
+              <button type="submit" id="message-button"><span>Send</span></button>
+            </form>
+          </section>
     </main>
 
     <script src="/socket.io/socket.io.js"></script>

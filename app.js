@@ -12,11 +12,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 // app.use(express.urlencoded({extended: true}));
 
-// Set view engine
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
 
-// Routing file
 let appRoutes = require('./routes/routes');
 app.use('/', appRoutes);
 
