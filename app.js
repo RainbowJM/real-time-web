@@ -27,7 +27,10 @@ io.on("connection", (socket) => {
         // }
         // history.push(message)
 
-        io.emit('message', message)
+        io.emit('message', {
+            message: message.message,
+            name: message.name
+        })
     })
 
     socket.on('disconnect', () => {

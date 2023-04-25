@@ -81,3 +81,18 @@ form button i {
     width: 20px;
     color: #ff7459;
 }
+
+section#trivia {
+    width: 90%;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+section#chat {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    margin-bottom: 24px;
+}
