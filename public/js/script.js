@@ -1,5 +1,5 @@
 const socket = io()
-const messages = document.querySelector('section ul')
+const messages = document.querySelector('section#chat ul')
 const input = document.querySelector('#message-input');
 const submit = document.querySelector('#message-button');
 

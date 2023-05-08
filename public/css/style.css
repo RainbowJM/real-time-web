@@ -1,8 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-}
+/* 
 :root{
     --background-color: #f8cec6;
 }
@@ -12,27 +8,6 @@ body {
     background: var(--background-color);
 }
 
-header {
-    width: 100%;
-    padding-left: 8%;
-    padding-right: 8%;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-header section {
-    width: 100%;
-    height: 7em;
-    display: flex;
-    align-items: center;
-}
-
-img[target=logo] {
-    width: 100px;
-    cursor: pointer;
-    margin: 30px 0;
-    border-radius: 50%;
-}
 
 h1 {
     margin: 10px;
@@ -65,6 +40,14 @@ section#enroll form input[type="text"] {
     padding: 15px 25px;
 }
 
+section#chat{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 25px;
+}
+
 form button {
     height: 50px;
     width: 50px;
@@ -88,6 +71,10 @@ section#trivia {
     flex-direction: column;
 }
 
+section#trivia-word{
+    background-color: orange;
+}
+
 section#chat {
     height: 100%;
     width: 100%;
@@ -95,4 +82,451 @@ section#chat {
     flex-direction: column;
     overflow: scroll;
     margin-bottom: 24px;
+}
+section#players-chat {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    margin-bottom: 24px;
+    background-color: green;
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+:root{
+    --background-color: #f8cec6;
+    --background-white: white;
+}
+
+body {
+    background: var(--background-white);
+}
+
+body > div {
+    height: 86vh;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+header {
+    width: 100%;
+    padding-left: 8%;
+    padding-right: 8%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+header section {
+    width: 100%;
+    height: 7em;
+    display: flex;
+    align-items: center;
+}
+
+header section h1{
+    margin: 10px;
+    text-align: center;
+}
+
+img[target=logo] {
+    width: 100px;
+    cursor: pointer;
+    margin: 30px 0;
+    border-radius: 50%;
+}
+
+h1, h2, p {
+    text-align: center;
+}
+
+section {
+    width: 90%;
+    height: 90%;
+    background: var(--background-color);
+    border-radius: 25px;
+    padding: 20px;
+}
+
+#enrollment section {
+    height: fit-content;
+    margin: 0 auto;
+}
+
+#enrollment form, #chat form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+form input[type="text"] {
+    font-family: Poppins, system-ui;
+    background: #f5f7fb;
+    border: none;
+    border-radius: 25px;
+    width: 90%;
+    padding: 15px 25px;
+}
+
+form button {
+    height: 50px;
+    width: 50px;
+    flex-shrink: 0;
+    background: #3aa68b;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+form button img {
+    height: 20px;
+    width: 20px;
+}
+
+#trivia {
+    width: 90%;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+#trivia section:first-of-type {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#question-answers-options {
+    height: 75vh;
+}
+
+#question-answers {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+#overlay {
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+#overlay.show {
+    display: flex;
+}
+
+#overlay > div {
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+}
+
+#loader {
+    width: 30px;
+    height: 30px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3aa68b;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#question {
+    text-align: center;
+}
+
+#answers {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+#answers button {
+    height: 50%;
+    width: 48%;
+    color: white;
+    font-family: Poppins, system-ui;
+    font-size: medium;
+    font-weight: bold;
+    background: slateblue;
+    transition: background .3s ease-in-out;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#answers button:disabled {
+    background: grey;
+    transition: background .3s ease-in-out;
+    cursor: auto;
+}
+
+#answers button:enabled:hover {
+    background: #594cac;
+    transition: background .3s ease-in-out;
+}
+
+#answers button.green {
+    background: #3aa68b;
+    transition: background .3s ease-in-out;
+}
+
+#answers button.red {
+    background: red;
+    transition: background .3s ease-in-out;
+}
+
+#answers button.hide {
+    visibility: hidden;
+}
+
+#category, #difficulty {
+    font-size: small;
+    display: flex;
+    align-items: center;
+}
+
+#category {
+    margin-bottom: 8px;
+}
+
+#category label, #difficulty label {
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    color: black;
+    background: #f5f7fb;
+    border: none;
+    border-radius: 10px;
+    font-family: Poppins, system-ui;
+    font-size: small;
+    padding: 8px;
+    margin-left: 16px;
+}
+
+#players-chat {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 16px;
+}
+
+#players {
+    height: 50%;
+}
+
+#players #connected {
+    width: 50%;
+    font-size: small;
+    margin: 0 auto 8px auto;
+}
+
+#players #connected span {
+    height: 10px;
+    width: 10px;
+    background: #3aa68b;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 1s linear 0s infinite alternate;
+    margin-right: 5px;
+}
+
+@keyframes pulse {
+    from {
+        background: #3aa68b;
+    }
+    to {
+        background-color: #9dd3c5;
+    }
+}
+
+ul {
+    list-style-type: none;
+    overflow: scroll;
+    padding-left: 0;
+    margin: 0;
+}
+
+#players ul {
+    width: 50%;
+    margin: 0 auto;
+}
+
+#players li {
+    font-weight: bold;
+}
+
+#score {
+    font-weight: normal;
+    float: right;
+}
+
+#chat {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    margin-bottom: 24px;
+}
+
+#spacing {
+    flex-grow: 1;
+}
+
+#chat li {
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#chat li #name {
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+#chat li.self #name, #chat li.multiple #name {
+    display: none;
+}
+
+#chat li #message {
+    color: black;
+    background: #f5f7fb;
+    border-radius: 0 25px 25px 25px;
+    width: 75%;
+    padding: 10px 25px;
+}
+
+#chat li.self #message {
+    color: white;
+    background: grey;
+    border-radius: 25px 0 25px 25px;
+    margin-left: auto;
+}
+
+#chat li #message p {
+    word-break: break-word;
+    display: inline;
+    margin: 0;
+}
+
+#chat li #message #time {
+    color: grey;
+    font-size: smaller;
+    float: right;
+}
+
+#chat li.self #message #time {
+    color: lightgrey;
+}
+
+#typing {
+    font-size: small;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 25px;
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+    body > div {
+        gap: 8px;
+    }
+    
+    #trivia {
+        flex-direction: row;
+    }
+
+    #question-answers-options {
+        height: 90%;
+    }
+
+    #question {
+        margin-bottom: 32px;
+    }
+
+    #answers {
+        height: 50%;
+    }
+
+    select {
+        font-size: unset;
+    }
+
+    #players-chat {
+        gap: 8px;
+        flex-shrink: unset;
+    }
+
+    #chat {
+        margin-bottom: unset;
+    }
+}
+
+/* Laptop */
+@media only screen and (min-width: 1024px) {
+    section {
+        width: 70%;
+    }
+
+    input {
+        width: 70%;
+    }
+
+    #trivia {
+        width: 70%;
+    }
+}
+
+/* Laptop L */
+@media only screen and (min-width: 1440px) {
+    section {
+        width: 50%;
+    }
+
+    input {
+        width: 50%;
+    }
+
+    #trivia {
+        width: 50%;
+    }
 }

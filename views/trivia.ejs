@@ -6,36 +6,39 @@
 </head>
 
 <body>
-    <header>
-        <%- include('./partials/header') %>
-    </header>
-
     <main>
-        <section id="trivia">
-            <h1>Welcome to Papiamtu Trivia, <%- name %></h1>
-            <div id="trivia-container">
-                <div id="trivia-question">
-                    <h2>Question</h2>
-                    <p id="trivia-question-text"></p>
-                </div>
-                <div id="trivia-answers">
-                    <h2>Answers</h2>
-                    <div id="trivia-answers-container">
-                        <button class="trivia-answer" id="trivia-answer-1"></button>
-                        <button class="trivia-answer" id="trivia-answer-2"></button>
-                        <button class="trivia-answer" id="trivia-answer-3"></button>
-                        <button class="trivia-answer" id="trivia-answer-4"></button>
+        <h1>Welcome to Papiamtu Trivia, <%- name %>
+        <div id="trivia">
+            <section id="question-answers-options">
+                <p>What is the correct translation</p>
+                <div id="question-answers">
+                    <div id="overlay">
+                        <div>
+                            <div id="loader"></div>
+                            <p></p>
+                        </div>
                     </div>
+                    <p id="question"></p>
                 </div>
+            </section>
+            <div id="players-chat">
+                <section id="players">
+                    <h2>Players</h2>
+                    <p id="connected"></p>
+                    <ul></ul>
+                </section>
+                <section id="chat">
+                    <h2>Chat</h2>
+                    <span id="spacing"></span>
+                    <ul></ul>
+                    <p id="typing"></p>
+                    <form class="message-input">
+                        <input type="text" id="message-input" autocomplete="off" placeholder="Type your message..">
+                        <button type="submit" id="message-button"><span>Send</span></button>
+                    </form>
+                </section>
             </div>
-        </section>
-        <section id="chat">
-            <ul></ul>
-            <form class="message-input">
-              <input type="text" id="message-input" autocomplete="off" placeholder="Type your message..">
-              <button type="submit" id="message-button"><span>Send</span></button>
-            </form>
-          </section>
+        </div>
     </main>
 
     <script src="/socket.io/socket.io.js"></script>
