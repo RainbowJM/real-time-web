@@ -53,7 +53,7 @@ io.on("connection", (socket) => {
 
     socket.on('user', (user) => {
         onlinePlayers.push([user, socket.id, 0]);
-        io.emit(user, onlinePlayers);
+        io.emit('users', onlinePlayers);
     });
 
     socket.on('message', (message) => {
@@ -95,10 +95,6 @@ io.on("connection", (socket) => {
         
         // Emit the array of typing clients.
         io.emit("typing", typing)
-    })
-
-    socket.on('stop typing', (typingUser) => {
-        socket.broadcast.emit('stop typing', typingUser);
     })
 
     socket.on('disconnect', () => {

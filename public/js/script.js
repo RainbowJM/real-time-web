@@ -3,9 +3,10 @@ const messages = document.querySelector('section#chat ul');
 const input = document.querySelector('#message-input');
 const nameTitle = document.querySelector('p#name');
 const typingElement = document.querySelector('#typing');
-console.log(typing)
 const submitMessage = document.querySelector('#message-button');
 const submitName = document.querySelector('#name-button');
+const connectedUser = document.querySelector('section#players p#connected');
+const playersList = document.querySelector('section#players ul');
 let names = document.querySelector('section#players ul');
 let messageLast = '';
 let currentUser;
@@ -62,23 +63,32 @@ socket.on("typing", (typing) => {
     })
 
     if (names.length == 0) {
-        // Empty indicator.
+        // Empty indicator
         typingElement.innerHTML = ""
     } else if (names.length == 1) {
-        console.log('typing', typing)
-        // Fill the typing indicator with text.
+        // Fill the typing indicator with text
         typingElement.innerHTML = `${names[0]} is typing...`
     } else {
-        // Fill the typing indicator with text.
+        // Fill the typing indicator with text
         typingElement.innerHTML = `${names.slice(0, -1).join(", ")} and ${names.slice(-1)} are typing...`
     }
 })
 
-// socket.on('username', username => {
-//     console.log('name client side', username);
-//     names.insertAdjacentHTML('beforeend',
-//         `<li>${username.name}</li>`)
-// });
+socket.on("users", (clients) => {
+    console.log(connectedUser, 'socket.on')
+    // Update the amount of clients.
+    connectedUser.innerHTML = `<span></span>${clients.length} online`
+
+    // Clear the list.
+    playersList.innerHTML = ""
+
+    clients.forEach((client) => {
+        // Add the client to the list.
+        playersList.appendChild(Object.assign(document.createElement("li"), {
+            innerHTML: `${client[0]} <span id="score">${client[2]}</span>`
+        }))
+    })
+})
 
 socket.on('history', (history) => {
     history.forEach((message) => {
