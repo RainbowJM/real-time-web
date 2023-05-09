@@ -1,9 +1,11 @@
 const socket = io();
 const messages = document.querySelector('section#chat ul');
 const input = document.querySelector('#message-input');
+const inputName = document.querySelector('#name-input');
 const nameTitle = document.querySelector('p#name');
 const typingElement = document.querySelector('#typing');
 const submitMessage = document.querySelector('#message-button');
+const inputMessage = document.querySelector('#name-button');
 const submitName = document.querySelector('#name-button');
 const connectedUser = document.querySelector('section#players p#connected');
 const playersList = document.querySelector('section#players ul');
@@ -35,8 +37,6 @@ submitMessage.addEventListener('click', event => {
             correct = true;
             console.log('correct')
             socket.emit('answer', correct)
-        } else {
-            console.log('incorrect')
         }
 
         input.value = ''
@@ -86,17 +86,17 @@ socket.on("typing", (typing) => {
     }
 })
 
-socket.on("users", (clients) => {
+socket.on("users", (users) => {
     // Update the amount of clients.
-    connectedUser.innerHTML = `<span></span>${clients.length} online`
+    connectedUser.innerHTML = `<span></span>${users.length} online`
 
     // Clear the list.
     playersList.innerHTML = ""
 
-    clients.forEach((client) => {
+    users.forEach((user) => {
         // Add the client to the list.
         playersList.appendChild(Object.assign(document.createElement("li"), {
-            innerHTML: `${client[0]} <span id="score">${client[2]}</span>`
+            innerHTML: `${user[0]} <span id="score">${user[2]}</span>`
         }))
     })
 })
@@ -111,6 +111,10 @@ socket.on('data', (currentWord) => {
     currentWordEng = currentWord.eng;
 })
 
+socket.on('left', (user) => {
+    console.log('left')
+})
+
 function add(message, name, id, time) {
     messages.appendChild(Object.assign(document.createElement('li'), {
         innerHTML: `<section>
@@ -121,4 +125,13 @@ function add(message, name, id, time) {
     }));
     messages.scrollTop = messages.scrollHeight;
     last = id;
+}
+
+function join(name) {
+    messages.appendChild(Object.assign(document.createElement('li'), {
+        innerHTML: `<section>
+        <span class="name">${name} left the chat</span>
+        `
+    }));
+    messages.scrollTop = messages.scrollHeight
 }

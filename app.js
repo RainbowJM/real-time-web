@@ -17,6 +17,7 @@ let currentWordId = null;
 let onlinePlayers = [];
 let history = [];
 let typing = [];
+let clients= {};
 
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
@@ -47,6 +48,7 @@ app.post('/', async (req, res) => {
 });
 
 io.on("connection", (socket) => {
+    clients[socket.id] = socket;
     console.log('user connected');
 
     socket.emit('history', history);
@@ -72,63 +74,65 @@ io.on("connection", (socket) => {
         })
     })
 
-    socket.on("typing", (client) => {        
+    socket.on("typing", (user) => {
         let exists = false
-        
-        // Check if the client is already in the array.
+
+        // Check if the user is already in the array.
         typing.forEach((client) => {
             if (client[1] == socket.id) {
-
                 exists = true
             }
         })
 
-        if (client.typing && !exists) {
-            // Add the name and connection ID to the list of typing clients.
-            typing.push([client.name, socket.id])
-        } else if (!client.typing) {
-            // Remove the name and connection ID from the list of typing clients.
+        if (user.typing && !exists) {
+            // Add the name and connection ID to the list of typing users.
+            typing.push([user.name, socket.id])
+        } else if (!user.typing) {
+            // Remove the name and connection ID from the list of typing users.
             typing.forEach((client, index) => {
                 if (client[1] == socket.id) {
                     typing.splice(index, 1);
                 }
             })
         }
-        
-        // Emit the array of typing clients.
+
+        // Emit the array of typing users.
         io.emit("typing", typing)
     })
 
     socket.on('answer', (correct) => {
         if (correct) {
-            // Update the score within the list of connected clients.
+            // Update the score within the list of connected users.
             onlinePlayers.forEach((client, index) => {
                 if (client[1] == socket.id) {
                     onlinePlayers[index][2]++
                 }
             })
 
-            // Sort the list of connected clients based on the score (descending).
-            onlinePlayers.sort(function(a, b) {
+            // Sort the list of connected users based on the score (descending).
+            onlinePlayers.sort(function (a, b) {
                 return b[2] - a[2]
             })
 
-            // Emit the names, connection IDs and scores of the connected clients.
+            // Emit the names, connection IDs and scores of the connected users.
             io.emit("users", onlinePlayers)
         }
     })
-    // socket.on('check', (answer) => {
-    //     console.log('socket.on app.js')
-    //     io.emit('check', answer)
-    // })
 
     socket.on('disconnect', () => {
         console.log('user disconnected')
+        console.log(onlinePlayers)
+        onlinePlayers.forEach((client, index) => {
+            if (client[1] == socket.id) {
+                onlinePlayers.splice(index, 1)
+            }
+        })
+        io.emit('users', onlinePlayers);
     })
 });
 
 async function getWord() {
-    currentWordId = Math.floor(Math.random() * 21) + 1;
+    currentWordId = Math.floor(Math.random() * 22) + 1;
     const { data, error } = await supabase
         .from('words')
         .select()
