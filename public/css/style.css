@@ -530,3 +530,17 @@ ul {
         width: 50%;
     }
 }
+
+.socket-disconnected {
+    border: none;
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .socket-disconnected::before {
+    content: "You are offline.";
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }

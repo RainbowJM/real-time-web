@@ -9,6 +9,7 @@ const inputMessage = document.querySelector('#name-button');
 const submitName = document.querySelector('#name-button');
 const connectedUser = document.querySelector('section#players p#connected');
 const playersList = document.querySelector('section#players ul');
+const chatScreen = document.querySelector('main section');
 const word = document.querySelector('section#question-answers-options p#question');
 let names = document.querySelector('section#players ul');
 let messageLast = '';
@@ -35,7 +36,6 @@ submitMessage.addEventListener('click', event => {
 
         if (input.value.charAt(0).toUpperCase() + input.value.slice(1) == currentWordEng) {
             correct = true;
-            console.log('correct')
             socket.emit('answer', correct)
         }
 
@@ -111,9 +111,10 @@ socket.on('data', (currentWord) => {
     currentWordEng = currentWord.eng;
 })
 
-socket.on('left', (user) => {
-    console.log('left')
-})
+socket.on('connect', () => {
+    checkSocketConnection();
+    setInterval(checkSocketConnection, 500);
+});
 
 function add(message, name, id, time) {
     messages.appendChild(Object.assign(document.createElement('li'), {
@@ -127,11 +128,19 @@ function add(message, name, id, time) {
     last = id;
 }
 
-function join(name) {
-    messages.appendChild(Object.assign(document.createElement('li'), {
-        innerHTML: `<section>
-        <span class="name">${name} left the chat</span>
-        `
-    }));
-    messages.scrollTop = messages.scrollHeight
+function checkSocketConnection() {
+    if (socket.connected) {
+        console.log('Socket is connected');
+        chatScreen.classList.remove('socket-disconnected');
+    } else {
+        console.log('Socket is disconnected');
+        chatScreen.classList.add('socket-disconnected');
+        setTimeout(() => {
+            if (!socket.connected) {
+                const error = document.querySelector('#error');
+                error.textContent = 'You are disconnected';
+                error.classList.add('show');
+            }
+        }, 5000);
+    }
 }
