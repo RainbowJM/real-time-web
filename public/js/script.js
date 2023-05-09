@@ -1,24 +1,61 @@
-const socket = io()
-const messages = document.querySelector('section#chat ul')
+const socket = io();
+const messages = document.querySelector('section#chat ul');
 const input = document.querySelector('#message-input');
-const submit = document.querySelector('#message-button');
+const nameTitle = document.querySelector('p#name');
+// const nameIput = document.querySelector('#name-input');
+const submitMessage = document.querySelector('#message-button');
+const submitName = document.querySelector('#name-button');
+let names = document.querySelector('section#players ul');
+let messageLast = '';
 
-submit.addEventListener('click', event => {
+submitMessage.addEventListener('click', event => {
     event.preventDefault()
+
+    const hour = new Date().toLocaleTimeString('nl-NL', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
     if (input.value) {
-        const chat = {
-            // username: usernameInput.value,
-            message: input.value
-        }
-        socket.emit('message', chat)
+        socket.emit('message', {
+            message: input.value,
+            name: nameTitle.textContent,
+            time: hour
+        })
+
+        add(input.value, nameTitle.textContent, socket.id, hour)
         input.value = ''
     }
 });
 
+socket.emit('user', nameTitle.textContent);
+
 socket.on('message', message => {
-    const li_element = document.createElement('li');
-    li_element.textContent = `${message.message} `;
-    // li_element.setAttribute('class', 'talk-bubble tri-right border round btm-left-in');
-    messages.appendChild(li_element);
-    messages.scrollTop = messages.scrollHeight;
+    if (message.id != socket.id) {
+        add(message.message, message.name, message.id, message.time)
+    }
 });
+
+socket.on('username', username => {
+    console.log(username);
+    names.innerHTML('beforeend',
+        `<li>${username.name}</li>`)
+});
+
+socket.on('history', (history) => {
+    history.forEach((message) => {
+      add(message.message, message.name, message.id, message.time)
+    })
+  })
+
+function add(message, name, id, time) {
+    messages.appendChild(Object.assign(document.createElement('li'), {
+        innerHTML: `<section>
+        <span class="name">${name}</span> 
+        <span class="time">${time}</span> 
+        <span class="message">${message}</span>
+        </section>`
+    }));
+    messages.scrollTop = messages.scrollHeight;
+    last = id;
+}
