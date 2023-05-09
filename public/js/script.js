@@ -7,9 +7,12 @@ const submitMessage = document.querySelector('#message-button');
 const submitName = document.querySelector('#name-button');
 const connectedUser = document.querySelector('section#players p#connected');
 const playersList = document.querySelector('section#players ul');
+const word = document.querySelector('section#question-answers-options p#question');
 let names = document.querySelector('section#players ul');
 let messageLast = '';
 let currentUser;
+let correct = false;
+let currentWordEng;
 
 submitMessage.addEventListener('click', event => {
     event.preventDefault()
@@ -27,6 +30,15 @@ submitMessage.addEventListener('click', event => {
         })
 
         add(input.value, nameTitle.textContent, socket.id, hour)
+
+        if (input.value.charAt(0).toUpperCase() + input.value.slice(1) == currentWordEng) {
+            correct = true;
+            console.log('correct')
+            socket.emit('answer', correct)
+        } else {
+            console.log('incorrect')
+        }
+
         input.value = ''
     }
 });
@@ -75,7 +87,6 @@ socket.on("typing", (typing) => {
 })
 
 socket.on("users", (clients) => {
-    console.log(connectedUser, 'socket.on')
     // Update the amount of clients.
     connectedUser.innerHTML = `<span></span>${clients.length} online`
 
@@ -94,6 +105,10 @@ socket.on('history', (history) => {
     history.forEach((message) => {
         add(message.message, message.name, message.id, message.time)
     })
+})
+
+socket.on('data', (currentWord) => {
+    currentWordEng = currentWord.eng;
 })
 
 function add(message, name, id, time) {

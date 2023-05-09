@@ -49,7 +49,9 @@ app.post('/', async (req, res) => {
 io.on("connection", (socket) => {
     console.log('user connected');
 
-    socket.emit('history', history)
+    socket.emit('history', history);
+
+    socket.emit('data', currentWord);
 
     socket.on('user', (user) => {
         onlinePlayers.push([user, socket.id, 0]);
@@ -96,6 +98,29 @@ io.on("connection", (socket) => {
         // Emit the array of typing clients.
         io.emit("typing", typing)
     })
+
+    socket.on('answer', (correct) => {
+        if (correct) {
+            // Update the score within the list of connected clients.
+            onlinePlayers.forEach((client, index) => {
+                if (client[1] == socket.id) {
+                    onlinePlayers[index][2]++
+                }
+            })
+
+            // Sort the list of connected clients based on the score (descending).
+            onlinePlayers.sort(function(a, b) {
+                return b[2] - a[2]
+            })
+
+            // Emit the names, connection IDs and scores of the connected clients.
+            io.emit("users", onlinePlayers)
+        }
+    })
+    // socket.on('check', (answer) => {
+    //     console.log('socket.on app.js')
+    //     io.emit('check', answer)
+    // })
 
     socket.on('disconnect', () => {
         console.log('user disconnected')
