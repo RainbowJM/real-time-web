@@ -7,18 +7,18 @@
 
 <body>
     <main>
-        <h1>Welcome to Papiamtu Trivia, <%- name %>
+        <h1>Welcome to Papiamtu Trivia, <p id="name"><%- name %></p></h1>
         <div id="trivia">
             <section id="question-answers-options">
-                <p>What is the correct translation</p>
+                <p>What is the correct translation </p>
                 <div id="question-answers">
-                    <div id="overlay">
+                    <!-- <div id="overlay">
                         <div>
                             <div id="loader"></div>
                             <p></p>
                         </div>
-                    </div>
-                    <p id="question"></p>
+                    </div> -->
+                    <p id="question"><%- data.pap %></p>
                 </div>
             </section>
             <div id="players-chat">
