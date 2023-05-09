@@ -15,7 +15,8 @@ let username;
 let currentWord = null;
 let currentWordId = null;
 let onlinePlayers = [];
-let history = []
+let history = [];
+let typing = [];
 
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
@@ -51,7 +52,6 @@ io.on("connection", (socket) => {
     socket.emit('history', history)
 
     socket.on('user', (user) => {
-        console.log('name: ' + user);
         onlinePlayers.push([user, socket.id, 0]);
         io.emit(user, onlinePlayers);
     });
@@ -68,6 +68,37 @@ io.on("connection", (socket) => {
             id: socket.id,
             time: message.time
         })
+    })
+
+    socket.on("typing", (client) => {        
+        let exists = false
+        
+        // Check if the client is already in the array.
+        typing.forEach((client) => {
+            if (client[1] == socket.id) {
+
+                exists = true
+            }
+        })
+
+        if (client.typing && !exists) {
+            // Add the name and connection ID to the list of typing clients.
+            typing.push([client.name, socket.id])
+        } else if (!client.typing) {
+            // Remove the name and connection ID from the list of typing clients.
+            typing.forEach((client, index) => {
+                if (client[1] == socket.id) {
+                    typing.splice(index, 1);
+                }
+            })
+        }
+        
+        // Emit the array of typing clients.
+        io.emit("typing", typing)
+    })
+
+    socket.on('stop typing', (typingUser) => {
+        socket.broadcast.emit('stop typing', typingUser);
     })
 
     socket.on('disconnect', () => {

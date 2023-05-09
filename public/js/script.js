@@ -2,11 +2,13 @@ const socket = io();
 const messages = document.querySelector('section#chat ul');
 const input = document.querySelector('#message-input');
 const nameTitle = document.querySelector('p#name');
-// const nameIput = document.querySelector('#name-input');
+const typingElement = document.querySelector('#typing');
+console.log(typing)
 const submitMessage = document.querySelector('#message-button');
 const submitName = document.querySelector('#name-button');
 let names = document.querySelector('section#players ul');
 let messageLast = '';
+let currentUser;
 
 submitMessage.addEventListener('click', event => {
     event.preventDefault()
@@ -28,6 +30,20 @@ submitMessage.addEventListener('click', event => {
     }
 });
 
+input.addEventListener('input', event => {
+    event.preventDefault();
+    socket.emit('typing', {
+        name: nameTitle.textContent,
+        typing: true
+    })
+    setTimeout(() => {
+        socket.emit("typing", {
+            name: nameTitle.textContent,
+            typing: false
+        })
+    }, 3000)
+});
+
 socket.emit('user', nameTitle.textContent);
 
 socket.on('message', message => {
@@ -36,17 +52,39 @@ socket.on('message', message => {
     }
 });
 
-socket.on('username', username => {
-    console.log(username);
-    names.innerHTML('beforeend',
-        `<li>${username.name}</li>`)
-});
+socket.on("typing", (typing) => {
+    let names = []
+
+    typing.forEach((client) => {
+        if (client[1] != socket.id) {
+            names.push(client[0])
+        }
+    })
+
+    if (names.length == 0) {
+        // Empty indicator.
+        typingElement.innerHTML = ""
+    } else if (names.length == 1) {
+        console.log('typing', typing)
+        // Fill the typing indicator with text.
+        typingElement.innerHTML = `${names[0]} is typing...`
+    } else {
+        // Fill the typing indicator with text.
+        typingElement.innerHTML = `${names.slice(0, -1).join(", ")} and ${names.slice(-1)} are typing...`
+    }
+})
+
+// socket.on('username', username => {
+//     console.log('name client side', username);
+//     names.insertAdjacentHTML('beforeend',
+//         `<li>${username.name}</li>`)
+// });
 
 socket.on('history', (history) => {
     history.forEach((message) => {
-      add(message.message, message.name, message.id, message.time)
+        add(message.message, message.name, message.id, message.time)
     })
-  })
+})
 
 function add(message, name, id, time) {
     messages.appendChild(Object.assign(document.createElement('li'), {
