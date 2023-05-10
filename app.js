@@ -6,6 +6,7 @@ const io = require('socket.io')(http);
 const port = process.env.PORT || 8080;
 const bodyParser = require('body-parser');
 const { createClient } = require('@supabase/supabase-js');
+const { resolve } = require('path');
 const supabase = createClient(
     'https://fgjcfncjxisqiskmnpes.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnamNmbmNqeGlzcWlza21ucGVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI0MTE5MjksImV4cCI6MTk5Nzk4NzkyOX0.jTjFjKrk83Eu1U0xXzw6i75M2YexAkhCGAEm6OymuUw'
@@ -17,7 +18,9 @@ let currentWordId = null;
 let onlinePlayers = [];
 let history = [];
 let typing = [];
-let clients= {};
+let nextWord;
+
+run();
 
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
@@ -48,7 +51,6 @@ app.post('/', async (req, res) => {
 });
 
 io.on("connection", (socket) => {
-    clients[socket.id] = socket;
     console.log('user connected');
 
     socket.emit('history', history);
@@ -116,12 +118,15 @@ io.on("connection", (socket) => {
 
             // Emit the names, connection IDs and scores of the connected users.
             io.emit("users", onlinePlayers)
+
+            // Get a new word
+            run();
+            io.emit('next word', nextWord);
         }
     })
 
     socket.on('disconnect', () => {
         console.log('user disconnected')
-        console.log(onlinePlayers)
         onlinePlayers.forEach((client, index) => {
             if (client[1] == socket.id) {
                 onlinePlayers.splice(index, 1)
@@ -138,6 +143,27 @@ async function getWord() {
         .select()
         .eq('id', currentWordId);
     return data[0];
+}
+
+function getNextWord(currentWord) {
+    return new Promise((resolve, reject) => {
+        getWord()
+            .then((data) => {
+                if (data !== currentWord) {
+                    currentWord = data;
+                    resolve(currentWord);
+                } else {
+                    return getNextWord(currentWord); // Recursively call getNextWord with the same currentWord
+                }
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+}
+
+async function run() {
+    nextWord = await getNextWord(currentWord);
 }
 
 http.listen(port, () => {

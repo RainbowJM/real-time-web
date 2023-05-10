@@ -34,10 +34,14 @@ submitMessage.addEventListener('click', event => {
 
         add(input.value, nameTitle.textContent, socket.id, hour)
 
-        if (input.value.charAt(0).toUpperCase() + input.value.slice(1) == currentWordEng) {
+        console.log(input.value, 'before')
+        console.log(input.value.charAt(0).toUpperCase() + input.value.slice(1) === currentWordEng)
+        if (input.value.charAt(0).toUpperCase() + input.value.slice(1) === currentWordEng) {
+            console.log('in')
             correct = true;
             socket.emit('answer', correct)
         }
+        console.log('after')
 
         input.value = ''
     }
@@ -115,6 +119,11 @@ socket.on('connect', () => {
     checkSocketConnection();
     setInterval(checkSocketConnection, 500);
 });
+
+socket.on('next word', (currentWord) => {
+    word.innerHTML = currentWord.pap;
+    currentWordEng = currentWord.eng;
+})
 
 function add(message, name, id, time) {
     messages.appendChild(Object.assign(document.createElement('li'), {
