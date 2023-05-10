@@ -126,6 +126,8 @@ io.on("connection", (socket) => {
             // Get a new word
             run();
             io.emit('next word', nextWord);
+        } else {
+            io.emit('wrong answer')
         }
     })
 

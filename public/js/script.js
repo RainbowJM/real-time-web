@@ -20,47 +20,54 @@ let currentWordEng;
 let currentWordPap;
 let description;
 
-submitMessage.addEventListener('click', event => {
-    event.preventDefault()
+if (submitMessage) {
+    submitMessage.addEventListener('click', event => {
+        event.preventDefault()
 
-    const hour = new Date().toLocaleTimeString('nl-NL', {
-        hour: '2-digit',
-        minute: '2-digit'
-    });
+        const hour = new Date().toLocaleTimeString('nl-NL', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
 
-    if (input.value) {
-        socket.emit('message', {
-            message: input.value,
-            name: nameTitle.textContent,
-            time: hour
-        })
+        if (input.value) {
+            socket.emit('message', {
+                message: input.value,
+                name: nameTitle.textContent,
+                time: hour
+            })
 
-        add(input.value, nameTitle.textContent, socket.id, hour)
+            add(input.value, nameTitle.textContent, socket.id, hour)
 
-        if (input.value.charAt(0).toUpperCase() + input.value.slice(1) === currentWordEng) {
-            correct = true;
+            console.log(input.value)
+            if (input.value.charAt(0).toUpperCase() + input.value.slice(1) === currentWordEng) {
+                correct = true;
+            }
             socket.emit('answer', correct)
+
+            input.value = ''
         }
+    });
+}
 
-        input.value = ''
-    }
-});
-
-input.addEventListener('input', event => {
-    event.preventDefault();
-    socket.emit('typing', {
-        name: nameTitle.textContent,
-        typing: true
-    })
-    setTimeout(() => {
-        socket.emit("typing", {
+if (input) {
+    input.addEventListener('input', event => {
+        event.preventDefault();
+        socket.emit('typing', {
             name: nameTitle.textContent,
-            typing: false
+            typing: true
         })
-    }, 3000)
-});
+        setTimeout(() => {
+            socket.emit('typing', {
+                name: nameTitle.textContent,
+                typing: false
+            })
+        }, 3000)
+    });
+}
 
-socket.emit('user', nameTitle.textContent);
+if (nameTitle) {
+    socket.emit('user', nameTitle.textContent);
+}
 
 socket.on('message', message => {
     if (message.id != socket.id) {
@@ -68,7 +75,7 @@ socket.on('message', message => {
     }
 });
 
-socket.on("typing", (typing) => {
+socket.on('typing', (typing) => {
     let names = []
 
     typing.forEach((client) => {
@@ -82,14 +89,14 @@ socket.on("typing", (typing) => {
         typingElement.innerHTML = ""
     } else if (names.length == 1) {
         // Fill the typing indicator with text
-        typingElement.innerHTML = `${names[0]} is typing...`
+        typingElement.innerHTML = `💬${names[0]} is typing...`
     } else {
         // Fill the typing indicator with text
-        typingElement.innerHTML = `${names.slice(0, -1).join(", ")} and ${names.slice(-1)} are typing...`
+        typingElement.innerHTML = `💬${names.slice(0, -1).join(", ")} and ${names.slice(-1)} are typing...`
     }
 })
 
-socket.on("users", (users) => {
+socket.on('users', (users) => {
     // Update the amount of clients.
     connectedUser.innerHTML = `<span></span>${users.length} online`
 
@@ -128,17 +135,22 @@ socket.on('next word', (currentWord) => {
 });
 
 socket.on('description', (descr) => {
-    console.log(descr)
     if (description === undefined) {
         description = descr;
-    } else {
-        console.log(description)
-        descriptionElement.innerHTML = currentWordPap + ': ' + description;
-        setTimeout(() => {
-            descriptionElement.innerHTML = '';
-        }, 2000);
     }
+    descriptionElement.innerHTML = currentWordPap + ': ' + description;
+    setTimeout(() => {
+        descriptionElement.innerHTML = '';
+    }, 2000);
+
 })
+
+socket.on('wrong answer', () => {
+    descriptionElement.innerHTML = '⚠️ Wrong answer!';
+    setTimeout(() => {
+        descriptionElement.innerHTML = '';
+    }, 2000);
+});
 
 function add(message, name, id, time) {
     messages.appendChild(Object.assign(document.createElement('li'), {
