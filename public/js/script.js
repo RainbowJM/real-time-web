@@ -130,10 +130,10 @@ function add(message, name, id, time) {
 
 function checkSocketConnection() {
     if (socket.connected) {
-        console.log('Socket is connected');
+        // console.log('Socket is connected');
         chatScreen.classList.remove('socket-disconnected');
     } else {
-        console.log('Socket is disconnected');
+        // console.log('Socket is disconnected');
         chatScreen.classList.add('socket-disconnected');
         setTimeout(() => {
             if (!socket.connected) {
