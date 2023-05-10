@@ -19,6 +19,7 @@ let onlinePlayers = [];
 let history = [];
 let typing = [];
 let nextWord;
+let description;
 
 run();
 
@@ -42,6 +43,7 @@ app.post('/', async (req, res) => {
     }
     if (!currentWord) {
         currentWord = await getWord();
+        description = currentWord.descr;
     }
     res.render('trivia',
         {
@@ -117,7 +119,9 @@ io.on("connection", (socket) => {
             })
 
             // Emit the names, connection IDs and scores of the connected users.
-            io.emit("users", onlinePlayers)
+            io.emit('users', onlinePlayers)
+
+            io.emit('description', description);
 
             // Get a new word
             run();
@@ -149,6 +153,8 @@ function getNextWord(currentWord) {
     return new Promise((resolve, reject) => {
         getWord()
             .then((data) => {
+                // console.log(data);
+                // console.log(currentWord)
                 if (data !== currentWord) {
                     currentWord = data;
                     resolve(currentWord);

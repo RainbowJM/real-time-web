@@ -11,11 +11,14 @@ const connectedUser = document.querySelector('section#players p#connected');
 const playersList = document.querySelector('section#players ul');
 const chatScreen = document.querySelector('main section');
 const word = document.querySelector('section#question-answers-options p#question');
+const descriptionElement = document.querySelector('section#question-answers-options p#description')
 let names = document.querySelector('section#players ul');
 let messageLast = '';
 let currentUser;
 let correct = false;
 let currentWordEng;
+let currentWordPap;
+let description;
 
 submitMessage.addEventListener('click', event => {
     event.preventDefault()
@@ -34,14 +37,10 @@ submitMessage.addEventListener('click', event => {
 
         add(input.value, nameTitle.textContent, socket.id, hour)
 
-        console.log(input.value, 'before')
-        console.log(input.value.charAt(0).toUpperCase() + input.value.slice(1) === currentWordEng)
         if (input.value.charAt(0).toUpperCase() + input.value.slice(1) === currentWordEng) {
-            console.log('in')
             correct = true;
             socket.emit('answer', correct)
         }
-        console.log('after')
 
         input.value = ''
     }
@@ -113,6 +112,7 @@ socket.on('history', (history) => {
 
 socket.on('data', (currentWord) => {
     currentWordEng = currentWord.eng;
+    currentWordPap = currentWord.pap;
 })
 
 socket.on('connect', () => {
@@ -121,8 +121,23 @@ socket.on('connect', () => {
 });
 
 socket.on('next word', (currentWord) => {
-    word.innerHTML = currentWord.pap;
     currentWordEng = currentWord.eng;
+    currentWordPap = currentWord.pap;
+    description = currentWord.descr;
+    word.innerHTML = currentWordPap;
+});
+
+socket.on('description', (descr) => {
+    console.log(descr)
+    if (description === undefined) {
+        description = descr;
+    } else {
+        console.log(description)
+        descriptionElement.innerHTML = currentWordPap + ': ' + description;
+        setTimeout(() => {
+            descriptionElement.innerHTML = '';
+        }, 2000);
+    }
 })
 
 function add(message, name, id, time) {
