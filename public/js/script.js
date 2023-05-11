@@ -190,9 +190,16 @@ function checkSocketConnection() {
         offlineError.classList.remove('socket-disconnected');
     } else {
         console.log('Socket is disconnected');
-        offlineError.innerHTML = ` 
+        if (!socket.connected) {
+            
+            offlineError.innerHTML = ` 
         <h2 class="hit-the-floor">504</h2>
         <p> <b>Your are offline</b> <br> You are offline, please check your internet connection</p>`;
         offlineError.classList.add('socket-disconnected');
+        }
+        // offlineError.innerHTML = ` 
+        // <h2 class="hit-the-floor">504</h2>
+        // <p> <b>Your are offline</b> <br> You are offline, please check your internet connection</p>`;
+        // offlineError.classList.add('socket-disconnected');
     }
 }
