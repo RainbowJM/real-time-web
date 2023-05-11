@@ -133,7 +133,6 @@ socket.on('data', (currentWord) => {
 
 socket.on('connect', () => {
     checkSocketConnection();
-    setInterval(checkSocketConnection, 500);
 });
 
 socket.on('next word', (currentWord) => {
@@ -190,6 +189,7 @@ function checkSocketConnection() {
     if (socket.connected) {
         offlineError.classList.remove('socket-disconnected');
     } else {
+        console.log('Socket is disconnected');
         offlineError.innerHTML = ` 
         <h2 class="hit-the-floor">504</h2>
         <p> <b>Your are offline</b> <br> You are offline, please check your internet connection</p>`;
