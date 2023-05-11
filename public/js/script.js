@@ -12,6 +12,7 @@ const playersList = document.querySelector('section#players ul');
 const chatScreen = document.querySelector('main section');
 const word = document.querySelector('section#question-answers-options p#question');
 const descriptionElement = document.querySelector('section#question-answers-options p#description')
+const networkError = document.querySelector('.error');
 let names = document.querySelector('section#players ul');
 let messageLast = '';
 let currentUser;
@@ -176,9 +177,9 @@ function add(message, name, id, time, self) {
     messages.appendChild(Object.assign(document.createElement('li'), {
         className: styling,
         innerHTML: `<section id='message'>
-        <span class="name">${name}</span> 
-        <span class="time">${time}</span> 
+        <p class="name">${name}</p> 
         <span class="message">${message}</span>
+        <span class="time">${time}</span> 
         </section>`
     }));
     // Scroll to the bottom of the chat.

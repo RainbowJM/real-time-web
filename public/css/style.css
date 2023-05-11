@@ -5,21 +5,16 @@
     box-sizing: border-box;
 }
 
-:root{
+:root {
     --background-color: #f8cec6;
     --background-white: white;
 }
 
 body {
     background: var(--background-white);
+    height: 100vh;
+    width: 100%;
 }
-
-/* body > div {
-    height: 86vh;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-} */
 
 header {
     width: 100%;
@@ -34,9 +29,10 @@ header div {
     height: 7em;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
-header div h1{
+header div h1 {
     margin: 10px;
     text-align: center;
 }
@@ -48,20 +44,11 @@ img[target=logo] {
     border-radius: 50%;
 }
 
-h1, h2, p {
+h1,
+h2,
+p {
     text-align: center;
 }
-
-/* section#enroll {
-    display: flex;
-    place-content: center;
-    width: 40em;
-    height: fit-content;
-    margin: 0 auto;
-    background: white;
-    border-radius: 25px;
-    padding: 20px;
-} */
 
 section {
     background: var(--background-color);
@@ -69,12 +56,13 @@ section {
     padding: 20px;
 }
 
-section#enroll  {
+section#enroll {
     height: fit-content;
     margin: 0 auto;
 }
 
-#enroll form, #chat form {
+#enroll form,
+#chat form {
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -143,7 +131,7 @@ form button {
     display: flex;
 }
 
-#overlay > div {
+#overlay>div {
     background: white;
     border-radius: 10px;
     text-align: center;
@@ -166,6 +154,7 @@ form button {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -207,6 +196,7 @@ form button {
     from {
         background: #3aa68b;
     }
+
     to {
         background-color: #9dd3c5;
     }
@@ -223,6 +213,7 @@ ul {
     width: 50%;
     margin: 0 auto;
 }
+
 #players li {
     font-weight: bold;
 }
@@ -263,7 +254,8 @@ ul {
     margin-bottom: 8px;
 }
 
-#chat li.self #name, #chat li.multiple #name {
+#chat li.self #name,
+#chat li.multiple #name {
     display: none;
 }
 
@@ -274,19 +266,28 @@ ul {
     width: 60%;
     padding: 10px 25px;
     height: 5em;
+    font-size: medium;
+}
+
+#chat li #message span::first-letter {
+    text-transform: uppercase;
 }
 
 #chat li.self #message {
-    color: white;
-    background: grey;
+    background: var(--background-white);
     border-radius: 25px 0 25px 25px;
     margin-left: auto;
+    border: 1.5px solid salmon;
 }
 
 #chat li #message p {
     word-break: break-word;
     display: inline;
     margin: 0;
+    text-align: start;
+    font-weight: bold;
+    font-size: medium;
+    font-style: italic;
 }
 
 #chat li #message .time {
@@ -296,7 +297,7 @@ ul {
 }
 
 #chat li.self #message .time {
-    color: lightgrey;
+    color: salmon;
 }
 
 #typing {
@@ -334,6 +335,7 @@ ul {
         margin-bottom: unset;
         height: 46.8em;
     }
+
     #trivia section:nth-of-type(1) {
         height: 59em;
     }
@@ -341,19 +343,21 @@ ul {
 
 /* Laptop */
 @media only screen and (min-width: 1048px) {
-    section {
-        width: 70%;
-    }
-
     input {
         width: 70%;
     }
 
     #trivia {
-        width: 70%;
+        flex-direction: row;
+        gap: 10px;
     }
-    #chat{
-        height: 46.8em;
+
+    #chat {
+        height: 34.8em;
+    }
+
+    #trivia section:nth-of-type(1) {
+        height: 46.9em;
     }
 }
 
@@ -362,11 +366,11 @@ ul {
     padding: 10px;
     background-color: #f8d7da;
     color: #721c24;
-  }
-  
-  .socket-disconnected::before {
+}
+
+.socket-disconnected::before {
     content: "You are offline.";
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
-  }
+}
