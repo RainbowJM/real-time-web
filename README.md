@@ -110,6 +110,7 @@ What you need to install for this project:
 - [Socket.io](https://socket.io/)
 - [EJS](https://ejs.co/)
 - [Nodemon](https://www.npmjs.com/package/nodemon)
+- [Supabase](https://supabase.com/)
 
 For deployment [Railway](https://railway.app/) was used and the main one.
 But [Adaptable](https://adaptable.io/) was also used for backup.
@@ -124,6 +125,7 @@ To install the dependencies you have to run the following command in your termin
 ``` npm install socket.io ```
 ``` npm install ejs ```
 ``` npm install nodemon ```
+``` npm install supabase ```
 
 ### Start server
 ``` npm run dev ```
@@ -209,19 +211,228 @@ app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
 ```
 
+### Supabase
+When you have installed the `Supabase` dependencies you can start using it in the project.
+
+The code below is the basic code to start using Supabase in your project.
+This will be in the `app.js` file.
+
+``` javascript
+const { createClient } = require('@supabase/supabase-js')
+const supabase = createClient(
+    'YOUR-API-URL',
+    'YOUR-API-KEY'
+);
+
+async function getWord() {
+    currentWordId = Math.floor(Math.random() * 22) + 1;
+    const { data, error } = await supabase
+        .from('words')
+        .select()
+        .eq('id', currentWordId);
+    return data[0];
+}
+```
+
 ## Usage
 ### Home page
 When the user arrives to the web application, first thing he/she will see is the input area for username.
 When the user enters a username and clicks on the send button, the user will be redirected to the chatroom.
-
-### Chatroom
+... image home page ...
+### Trivia page
 When the user arrives to the chatroom, the user will see the input area for messages.
 When the user enters a message and clicks on the send button, the message will be send to the chatroom.
 <img width="1347" alt="Screenshot 2023-05-11 at 14 09 45" src="https://github.com/RainbowJM/real-time-web/assets/59873140/35223561-c4d3-485b-be7c-c6c6266804a7">
 
+The trivia page has a chat area for messages, a chat area to see online users, a chat area for the current word and its description.
+
 ## API
+The API that was used for this project was made in [Supabase](https://supabase.com/).
+The API has a table with 22 words in it.
+The words are in Papiamentu and have a description in English.
+The API is used to get a random word from the table.
+The code below is used to get a random word from the table.
+``` javascript
+async function getWord() {
+    currentWordId = Math.floor(Math.random() * 22) + 1;
+    const { data, error } = await supabase
+        .from('words')
+        .select()
+        .eq('id', currentWordId);
+    return data[0];
+}
+```
+The response that the API return is as follows:
+```json
+[
+    {
+        "id": 2,
+        "eng": "Bee",
+        "pap": "Abeha",
+        "descr": "A stinging winged insect which collects nectar and pollen, produces wax and honey, and lives in large communities.",
+        "created_at": "2023-05-08T15:55:02.365625+00:00"
+    },
+    {
+        "id": 3,
+        "eng": "Belly",
+        "pap": "Barika",
+        "descr": "The front part of the human trunk below the ribs, containing the stomach and bowels.",
+        "created_at": "2023-05-08T15:56:31.413877+00:00"
+    },
+    {
+        "id": 4,
+        "eng": "Depressed",
+        "pap": "Deprimi",
+        "descr": "A state of unhappiness or despondency.",
+        "created_at": "2023-05-08T15:57:26.929151+00:00"
+    },
+    {
+        "id": 5,
+        "eng": "Capable",
+        "pap": "Kapas",
+        "descr": " Skill to do something",
+        "created_at": "2023-05-08T15:58:50.366346+00:00"
+    },
+    {
+        "id": 6,
+        "eng": "Lawyer",
+        "pap": "Abogado",
+        "descr": "One whose profession is to conduct lawsuits for clients or to advise as to legal rights and obligations in other matters",
+        "created_at": "2023-05-08T15:59:47.371804+00:00"
+    },
+    {
+        "id": 7,
+        "eng": "You",
+        "pap": "Abo",
+        "descr": "Used to refer to the person or people that the speaker is addressing.",
+        "created_at": "2023-05-08T16:26:23.650513+00:00"
+    },
+    {
+        "id": 8,
+        "eng": "Abundance",
+        "pap": "Abundansia",
+        "descr": "A very large quantity of something.",
+        "created_at": "2023-05-08T16:27:16.745588+00:00"
+    },
+    {
+        "id": 9,
+        "eng": "Address",
+        "pap": "Adrès",
+        "descr": "The particulars of the place where someone lives or an organization is situated.",
+        "created_at": "2023-05-08T18:40:17.64145+00:00"
+    },
+    {
+        "id": 10,
+        "eng": "Adult",
+        "pap": "Adulto",
+        "descr": "A person who is fully grown or developed.",
+        "created_at": "2023-05-08T18:40:55.916369+00:00"
+    },
+    {
+        "id": 11,
+        "eng": "Airplane",
+        "pap": "Avion",
+        "descr": "A powered flying vehicle with fixed wings and a weight greater than that of the air it displaces",
+        "created_at": "2023-05-08T18:48:08.601155+00:00"
+    },
+    {
+        "id": 12,
+        "eng": "Agony",
+        "pap": "Agonia",
+        "descr": "Extreme physical or mental suffering.",
+        "created_at": "2023-05-08T18:49:03.932489+00:00"
+    },
+    {
+        "id": 13,
+        "eng": "Set apart",
+        "pap": "Aisla",
+        "descr": "Set somebody/something apart",
+        "created_at": "2023-05-08T18:49:55.254593+00:00"
+    },
+    {
+        "id": 14,
+        "eng": "In case",
+        "pap": "Akaso",
+        "descr": "As a provision against something happening or being true.",
+        "created_at": "2023-05-08T19:00:19.886392+00:00"
+    },
+    {
+        "id": 15,
+        "eng": "Emphasize",
+        "pap": "Enfatisa",
+        "descr": "Give special importance or value to (something) in speaking or writing.",
+        "created_at": "2023-05-08T19:02:33.924827+00:00"
+    },
+    {
+        "id": 16,
+        "eng": "Bad smell",
+        "pap": "Baf",
+        "descr": "Malodorous, stinking, fetid, noisome, putrid, rank, fusty, musty",
+        "created_at": "2023-05-08T20:39:32.580182+00:00"
+    },
+    {
+        "id": 17,
+        "eng": "Descend",
+        "pap": "Baha",
+        "descr": "Move or fall downwards.",
+        "created_at": "2023-05-08T20:40:11.369358+00:00"
+    },
+    {
+        "id": 18,
+        "eng": "Brawl",
+        "pap": "Badabada",
+        "descr": "Rough or noisy fight or quarrel.",
+        "created_at": "2023-05-08T20:40:53.276923+00:00"
+    },
+    {
+        "id": 19,
+        "eng": "Scale",
+        "pap": "Balansa",
+        "descr": "Each of the small, thin horny or bony plates protecting the skin of fish and reptiles, typically overlapping one another.",
+        "created_at": "2023-05-08T20:43:14.309721+00:00"
+    },
+    {
+        "id": 20,
+        "eng": "Trunk",
+        "pap": "Bahul",
+        "descr": "An enclosed space at the back of a car for carrying luggage and other goods",
+        "created_at": "2023-05-08T20:44:12.148139+00:00"
+    },
+    {
+        "id": 21,
+        "eng": "Cow",
+        "pap": "Baka",
+        "descr": "A fully grown female animal of a domesticated breed of ox, kept to produce milk or beef.",
+        "created_at": "2023-05-08T20:44:56.102704+00:00"
+    },
+    {
+        "id": 1,
+        "eng": "Ask",
+        "pap": "Pidi",
+        "descr": "Say something in order to obtain an answer or some information.",
+        "created_at": "2023-04-25T08:47:55.598659+00:00"
+    },
+    {
+        "id": 22,
+        "eng": "Rejection",
+        "pap": "Rechaso",
+        "descr": "The dismissing or refusing of a proposal, idea",
+        "created_at": "2023-05-09T20:18:40.901886+00:00"
+    }
+]
+```
+For a more detailed documentation of the API please visit [here](https://documenter.getpostman.com/view/15026767/Tz5tY8Zo).
+
 ## Data life cycle
 ## Data modeling
+The data model for this project is very simple. It consists of a single table with the following columns:
+- id: The id of the word
+- eng: The english translation of the word
+- pap: The papiamentu translation of the word
+- descr: A description of the word
+- created_at: The date and time the word was added to the database
+
+
 ## Real time events
 ## Live demo
 The best live demo version of this project can be found [here](https://humble-morning-production.up.railway.app/).
