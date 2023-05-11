@@ -81,7 +81,6 @@ On the side is the user list. The list shows all users who are logged into the c
 - [ ] Offline mode
 - [ ] User can see the words he/she has guessed
 
-
 #### Could have
 - [ ] The application has rooms
 - [ ] User can see which room he/she is in
@@ -218,6 +217,8 @@ When the user enters a username and clicks on the send button, the user will be 
 ### Chatroom
 When the user arrives to the chatroom, the user will see the input area for messages.
 When the user enters a message and clicks on the send button, the message will be send to the chatroom.
+<img width="1347" alt="Screenshot 2023-05-11 at 14 09 45" src="https://github.com/RainbowJM/real-time-web/assets/59873140/35223561-c4d3-485b-be7c-c6c6266804a7">
+
 ## API
 ## Data life cycle
 ## Data modeling
