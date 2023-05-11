@@ -432,6 +432,7 @@ The data model for this project is very simple. It consists of a single table wi
 - descr: A description of the word
 - created_at: The date and time the word was added to the database
 
+![Blank diagram](https://github.com/RainbowJM/real-time-web/assets/59873140/519d85e7-5ad2-424d-80c9-dcb4eef6843f)
 
 ## Real time events
 ## Live demo
