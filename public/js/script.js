@@ -189,8 +189,8 @@ function checkSocketConnection() {
     if (socket.connected) {
         offlineError.classList.remove('socket-disconnected');
     } else {
-        console.log('Socket is disconnected');
         if (!socket.connected) {
+            console.log('Socket is disconnected');
             
             offlineError.innerHTML = ` 
         <h2 class="hit-the-floor">504</h2>
