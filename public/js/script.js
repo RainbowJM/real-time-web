@@ -24,26 +24,29 @@ if (submitMessage) {
     submitMessage.addEventListener('click', event => {
         event.preventDefault()
 
+        // Get the current time.
         const hour = new Date().toLocaleTimeString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit'
         });
 
         if (input.value) {
+            // Emit the message to all connected users.
             socket.emit('message', {
                 message: input.value,
                 name: nameTitle.textContent,
                 time: hour
             })
 
+            // Add the message to the chat.
             add(input.value, nameTitle.textContent, socket.id, hour)
 
-            console.log(input.value)
             if (input.value.charAt(0).toUpperCase() + input.value.slice(1) === currentWordEng) {
                 correct = true;
             }
             socket.emit('answer', correct)
 
+            // Clear the input field.
             input.value = ''
         }
     });
@@ -52,6 +55,7 @@ if (submitMessage) {
 if (input) {
     input.addEventListener('input', event => {
         event.preventDefault();
+        // Emit the typing event.
         socket.emit('typing', {
             name: nameTitle.textContent,
             typing: true
@@ -66,10 +70,12 @@ if (input) {
 }
 
 if (nameTitle) {
+    // Get the name of the user.
     socket.emit('user', nameTitle.textContent);
 }
 
 socket.on('message', message => {
+    // Add the message to the chat.
     if (message.id != socket.id) {
         add(message.message, message.name, message.id, message.time)
     }
@@ -78,8 +84,10 @@ socket.on('message', message => {
 socket.on('typing', (typing) => {
     let names = []
 
+    // Get the names of the users that are typing.
     typing.forEach((client) => {
         if (client[1] != socket.id) {
+            // Add the name to the list.
             names.push(client[0])
         }
     })
@@ -112,6 +120,7 @@ socket.on('users', (users) => {
 })
 
 socket.on('history', (history) => {
+    // Add the message to the chat.
     history.forEach((message) => {
         add(message.message, message.name, message.id, message.time)
     })
@@ -160,16 +169,15 @@ function add(message, name, id, time) {
         <span class="message">${message}</span>
         </section>`
     }));
+    // Scroll to the bottom of the chat.
     messages.scrollTop = messages.scrollHeight;
     last = id;
 }
 
 function checkSocketConnection() {
     if (socket.connected) {
-        // console.log('Socket is connected');
         chatScreen.classList.remove('socket-disconnected');
     } else {
-        // console.log('Socket is disconnected');
         chatScreen.classList.add('socket-disconnected');
         setTimeout(() => {
             if (!socket.connected) {

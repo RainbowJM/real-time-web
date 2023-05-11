@@ -34,13 +34,17 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', async (req, res) => {
+    // Get the username from the form.
     if (req.body.name) {
         username = req.body.name
     }
     if (!currentWord) {
+        // Get a word.
         currentWord = await getWord();
+        // Get the description of the word.
         description = currentWord.descr;
     }
+    // Render the trivia page.
     res.render('trivia',
         {
             name: username,
@@ -56,16 +60,22 @@ io.on("connection", (socket) => {
     socket.emit('data', currentWord);
 
     socket.on('user', (user) => {
+        // Add the user to the list of connected users.
         onlinePlayers.push([user, socket.id, 0]);
+        // Emit the list of connected users.
         io.emit('users', onlinePlayers);
     });
 
     socket.on('message', (message) => {
+        // Add the message to the history.
         while (history.length > historySize) {
+            // Remove the oldest message.
             history.shift()
         }
+        // Add the message to the history.
         history.push(message)
 
+        // Emit the message to all connected users.
         io.emit('message', {
             message: message.message,
             name: message.name,
@@ -91,6 +101,7 @@ io.on("connection", (socket) => {
             // Remove the name and connection ID from the list of typing users.
             typing.forEach((client, index) => {
                 if (client[1] == socket.id) {
+                    // Remove the user from the list of typing users.
                     typing.splice(index, 1);
                 }
             })
@@ -105,6 +116,7 @@ io.on("connection", (socket) => {
             // Update the score within the list of connected users.
             onlinePlayers.forEach((client, index) => {
                 if (client[1] == socket.id) {
+                    // Increase the score of the user.
                     onlinePlayers[index][2]++
                 }
             })
@@ -117,28 +129,35 @@ io.on("connection", (socket) => {
             // Emit the names, connection IDs and scores of the connected users.
             io.emit('users', onlinePlayers)
 
+            // Emit the description of the word.
             io.emit('description', description);
 
             // Get a new word
             run();
+            // Emit the new word.
             io.emit('next word', nextWord);
         } else {
+            // Emit that the answer was wrong.
             io.emit('wrong answer')
         }
     })
 
     socket.on('disconnect', () => {
         console.log('user disconnected')
+        // Remove the user from the list of connected users.
         onlinePlayers.forEach((client, index) => {
             if (client[1] == socket.id) {
+                // Remove the user from the list of connected users.
                 onlinePlayers.splice(index, 1)
             }
         })
+        // Emit the list of connected users.
         io.emit('users', onlinePlayers);
     })
 });
 
 async function getWord() {
+    // Get a random word from the database.
     currentWordId = Math.floor(Math.random() * 22) + 1;
     const { data, error } = await supabase
         .from('words')
@@ -148,6 +167,7 @@ async function getWord() {
 }
 
 function getNextWord(currentWord) {
+    // Get a new word.
     return new Promise((resolve, reject) => {
         getWord()
             .then((data) => {
