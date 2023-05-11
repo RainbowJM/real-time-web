@@ -360,10 +360,10 @@ ul {
         height: 46.9em;
     }
 }
-.error{
+.error {
     display: none;
 }
-.error .socket-disconnected {
+.error.socket-disconnected {
     border: none;
     padding: 10px;
     background-color: #f8d7da;
