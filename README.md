@@ -9,8 +9,24 @@
     - [Idea 3 - Trivia game](#idea-3---trivia-game)
   - [Concept](#concept)
     - [Functionalities](#functionalities)
+      - [Core Functionalities](#core-functionalities)
+      - [Must have](#must-have)
+      - [Should have](#should-have)
+      - [Could have](#could-have)
+      - [Would have](#would-have)
+      - [Techniques used](#techniques-used)
   - [Installation](#installation)
+    - [Clone repository](#clone-repository)
+    - [Install dependencies](#install-dependencies)
+    - [Start server](#start-server)
+    - [Express server](#express-server)
+    - [Socket.io](#socketio)
+    - [Nodemon](#nodemon)
+    - [EJS](#ejs)
+    - [Supabase](#supabase)
   - [Usage](#usage)
+    - [Home page](#home-page)
+    - [Trivia page](#trivia-page)
   - [API](#api)
   - [Data life cycle](#data-life-cycle)
   - [Data modeling](#data-modeling)
@@ -78,8 +94,10 @@ On the side is the user list. The list shows all users who are logged into the c
 - [ ] Instruction when join the room how the game works
 - [X] Works on Ipad
 - [ ] Works on mobile
-- [ ] Offline mode
+- [X] Offline mode
 - [ ] User can see the words he/she has guessed
+- [ ] Security
+- [ ] Loading state
 
 #### Could have
 - [ ] The application has rooms
@@ -432,9 +450,24 @@ The data model for this project is very simple. It consists of a single table wi
 - descr: A description of the word
 - created_at: The date and time the word was added to the database
 
-![Blank diagram](https://github.com/RainbowJM/real-time-web/assets/59873140/519d85e7-5ad2-424d-80c9-dcb4eef6843f)
+![Data diagram API](https://github.com/RainbowJM/real-time-web/assets/59873140/519d85e7-5ad2-424d-80c9-dcb4eef6843f)
 
 ## Real time events
+The real time events that are used in this project are the following:
+-  `connection`: This event is used to connect the client to the server.
+-  `disconnect`: This event is used to disconnect the client from the server.
+-  `message`: This event is used to send a message from the client to the server.
+-  `answer`: This event is used to send an answer from the client to the server.
+-  `history`: This event is used to send the history of the chat from the server to the client.
+-  `typing`: This event is used to send a indicator that a user is typing.
+-  `description`: This event is used to send the description of a word.
+-  `next word`: This event is used to send the next word to the client.
+-  `wrong answer`: This event is used when the answer is wrong. 
+-  `data`: This event is used to send the data of the game to the client.
+-  `user`: This event is used to send the user data to the server.
+-  `users`: This event is used to send the users data to the client.
+
+
 ## Live demo
 The best live demo version of this project can be found [here](https://humble-morning-production.up.railway.app/).
 
