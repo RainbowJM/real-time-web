@@ -363,7 +363,7 @@ ul {
 .error{
     display: none;
 }
-.error-message.socket-disconnected {
+.error-message .socket-disconnected {
     border: none;
     padding: 10px;
     background-color: #f8d7da;
