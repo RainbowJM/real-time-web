@@ -175,54 +175,6 @@ form button {
     text-align: center;
 }
 
-#answers {
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 32px;
-}
-
-#answers button {
-    height: 50%;
-    width: 48%;
-    color: white;
-    font-family: Poppins, system-ui;
-    font-size: medium;
-    font-weight: bold;
-    background: slateblue;
-    transition: background .3s ease-in-out;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-#answers button:disabled {
-    background: grey;
-    transition: background .3s ease-in-out;
-    cursor: auto;
-}
-
-#answers button:enabled:hover {
-    background: #594cac;
-    transition: background .3s ease-in-out;
-}
-
-#answers button.green {
-    background: #3aa68b;
-    transition: background .3s ease-in-out;
-}
-
-#answers button.red {
-    background: red;
-    transition: background .3s ease-in-out;
-}
-
-#answers button.hide {
-    visibility: hidden;
-}
-
 #players-chat {
     width: 100%;
     display: flex;
