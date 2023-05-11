@@ -442,6 +442,8 @@ The response that the API return is as follows:
 For a more detailed documentation of the API please visit [here](https://documenter.getpostman.com/view/15026767/Tz5tY8Zo).
 
 ## Data life cycle
+The data life cycle of this project is as follows:
+
 <img width="501" alt="Screenshot 2023-05-11 at 21 00 28" src="https://github.com/RainbowJM/real-time-web/assets/59873140/e93c2648-c236-4c13-88f3-6d75c4d91a0a">
 
 ## Data modeling
