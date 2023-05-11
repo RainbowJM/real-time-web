@@ -31,6 +31,7 @@
   - [Data life cycle](#data-life-cycle)
   - [Data modeling](#data-modeling)
   - [Real time events](#real-time-events)
+  - [UI stack](#ui-stack)
   - [Live demo](#live-demo)
 ---
 ## Description
@@ -476,6 +477,7 @@ The real time events that are used in this project are the following:
 
 The full code of the server is in the file `app.js` and the client code is in the file `script.js`.
 At most of the function there is a comment that explains what the function does.
+## UI stack
 
 ## Live demo
 The best live demo version of this project can be found [here](https://humble-morning-production.up.railway.app/).
