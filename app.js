@@ -155,8 +155,6 @@ function getNextWord(currentWord) {
     return new Promise((resolve, reject) => {
         getWord()
             .then((data) => {
-                // console.log(data);
-                // console.log(currentWord)
                 if (data !== currentWord) {
                     currentWord = data;
                     resolve(currentWord);
