@@ -12,7 +12,6 @@ const playersList = document.querySelector('section#players ul');
 const chatScreen = document.querySelector('main div#trivia');
 const word = document.querySelector('section#question-answers-options p#question');
 const descriptionElement = document.querySelector('section#question-answers-options p#description')
-const networkError = document.querySelector('.error');
 let names = document.querySelector('section#players ul');
 let messageLast = '';
 let currentUser;
@@ -191,7 +190,7 @@ function checkSocketConnection() {
     if (socket.connected) {
         chatScreen.classList.remove('socket-disconnected');
     } else {
-        const error = document.querySelector('#error');
+        const error = document.querySelector('.error');
         error.textContent = 'You are disconnected';
         error.classList.add('show');
         chatScreen.classList.add('socket-disconnected');
