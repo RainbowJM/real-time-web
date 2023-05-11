@@ -6,7 +6,6 @@ const io = require('socket.io')(http);
 const port = process.env.PORT || 8080;
 const bodyParser = require('body-parser');
 const { createClient } = require('@supabase/supabase-js');
-const { resolve } = require('path');
 const supabase = createClient(
     'https://fgjcfncjxisqiskmnpes.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnamNmbmNqeGlzcWlza21ucGVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI0MTE5MjksImV4cCI6MTk5Nzk4NzkyOX0.jTjFjKrk83Eu1U0xXzw6i75M2YexAkhCGAEm6OymuUw'
@@ -22,9 +21,6 @@ let nextWord;
 let description;
 
 run();
-
-app.set("views", path.join(__dirname, "views"));
-app.set('view engine', 'ejs');
 
 app.use(express.static(path.resolve('public')));
 app.use(bodyParser.json());
