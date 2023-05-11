@@ -39,7 +39,7 @@ if (submitMessage) {
             })
 
             // Add the message to the chat.
-            add(input.value, nameTitle.textContent, socket.id, hour)
+            add(input.value, nameTitle.textContent, socket.id, hour, true)
 
             if (input.value.charAt(0).toUpperCase() + input.value.slice(1) === currentWordEng) {
                 correct = true;
@@ -161,9 +161,21 @@ socket.on('wrong answer', () => {
     }, 2000);
 });
 
-function add(message, name, id, time) {
+function add(message, name, id, time, self) {
+    let styling = ""
+    
+    // Add styling to the message if you are the sender.
+    if (self) {
+        styling = "self"
+    } else {
+        if (last == id) {
+            styling = "multiple"
+        }
+    }
+
     messages.appendChild(Object.assign(document.createElement('li'), {
-        innerHTML: `<section>
+        className: styling,
+        innerHTML: `<section id='message'>
         <span class="name">${name}</span> 
         <span class="time">${time}</span> 
         <span class="message">${message}</span>
