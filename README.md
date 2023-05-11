@@ -92,6 +92,12 @@ On the side is the user list. The list shows all users who are logged into the c
 - [ ] User can see the words he/she has added
 - [ ] User can see the words other users have added
 
+#### Techniques used
+- [X] Input area for username and message
+- [X] Send button for username and message
+- [X] Chat area for messages
+- [X] Chat area for users
+- [X] Chat area for current word
 
 ## Installation
 The installation of this project is very easy. 
@@ -205,6 +211,13 @@ app.set('view engine', 'ejs');
 ```
 
 ## Usage
+### Home page
+When the user arrives to the web application, first thing he/she will see is the input area for username.
+When the user enters a username and clicks on the send button, the user will be redirected to the chatroom.
+
+### Chatroom
+When the user arrives to the chatroom, the user will see the input area for messages.
+When the user enters a message and clicks on the send button, the message will be send to the chatroom.
 ## API
 ## Data life cycle
 ## Data modeling
