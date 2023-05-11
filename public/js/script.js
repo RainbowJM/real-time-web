@@ -9,7 +9,7 @@ const inputMessage = document.querySelector('#name-button');
 const submitName = document.querySelector('#name-button');
 const connectedUser = document.querySelector('section#players p#connected');
 const playersList = document.querySelector('section#players ul');
-const chatScreen = document.querySelector('main div#trivia');
+const offlineError = document.querySelector('.error');
 const word = document.querySelector('section#question-answers-options p#question');
 const descriptionElement = document.querySelector('section#question-answers-options p#description')
 let names = document.querySelector('section#players ul');
@@ -188,12 +188,12 @@ function add(message, name, id, time, self) {
 
 function checkSocketConnection() {
     if (socket.connected) {
-        chatScreen.classList.remove('socket-disconnected');
+        offlineError.classList.remove('socket-disconnected');
     } else {
-        const error = document.querySelector('.error');
-        error.textContent = 'You are disconnected';
-        error.classList.add('show');
-        chatScreen.classList.add('socket-disconnected');
+        offlineError.innerHTML = ` 
+        <h2 class="hit-the-floor">504</h2>
+        <p> <b>Your are offline</b> <br> You are offline, please check your internet connection</p>`;
+        offlineError.classList.add('socket-disconnected');
 
 
     }
