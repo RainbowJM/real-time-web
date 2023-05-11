@@ -453,6 +453,8 @@ The data model for this project is very simple. It consists of a single table wi
 ![Data diagram API](https://github.com/RainbowJM/real-time-web/assets/59873140/519d85e7-5ad2-424d-80c9-dcb4eef6843f)
 
 ## Real time events
+<img width="558" alt="Screenshot 2023-05-11 at 19 31 08" src="https://github.com/RainbowJM/real-time-web/assets/59873140/fa51f64d-f067-4d05-8a1b-712756969b08">
+
 The real time events that are used in this project are the following:
 -  `connection`: This event is used to connect the client to the server.
 -  `disconnect`: This event is used to disconnect the client from the server.
