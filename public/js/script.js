@@ -9,7 +9,7 @@ const inputMessage = document.querySelector('#name-button');
 const submitName = document.querySelector('#name-button');
 const connectedUser = document.querySelector('section#players p#connected');
 const playersList = document.querySelector('section#players ul');
-const chatScreen = document.querySelector('main section');
+const chatScreen = document.querySelector('main div#trivia');
 const word = document.querySelector('section#question-answers-options p#question');
 const descriptionElement = document.querySelector('section#question-answers-options p#description')
 const networkError = document.querySelector('.error');
@@ -164,7 +164,7 @@ socket.on('wrong answer', () => {
 
 function add(message, name, id, time, self) {
     let styling = ""
-    
+
     // Add styling to the message if you are the sender.
     if (self) {
         styling = "self"
@@ -191,13 +191,11 @@ function checkSocketConnection() {
     if (socket.connected) {
         chatScreen.classList.remove('socket-disconnected');
     } else {
+        const error = document.querySelector('#error');
+        error.textContent = 'You are disconnected';
+        error.classList.add('show');
         chatScreen.classList.add('socket-disconnected');
-        setTimeout(() => {
-            if (!socket.connected) {
-                const error = document.querySelector('#error');
-                error.textContent = 'You are disconnected';
-                error.classList.add('show');
-            }
-        }, 5000);
+
+
     }
 }
