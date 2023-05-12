@@ -118,6 +118,11 @@ io.on("connection", (socket) => {
                 if (client[1] == socket.id) {
                     // Increase the score of the user.
                     onlinePlayers[index][2]++
+
+                    if (onlinePlayers[index][2] === 10) {
+                        // Emit that the answer was correct.
+                        io.emit('game won', client[0])
+                    }
                 }
             })
 

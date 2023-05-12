@@ -163,10 +163,19 @@ socket.on('wrong answer', () => {
 });
 
 socket.on('disconnected', (client) => {
-    console.log(client);
     messages.appendChild(Object.assign(document.createElement('li'), {
         innerHTML: `<section id='disconnect'>
         <p class="message">${client} has left</p>
+        </section>`
+    }));
+    // Scroll to the bottom of the chat.
+    messages.scrollTop = messages.scrollHeight;
+});
+
+socket.on('game won', (client) => {
+    messages.appendChild(Object.assign(document.createElement('li'), {
+        innerHTML: `<section id='won'>
+        <p class="message">${client} won! Congratulations!!👏🎉</p>
         </section>`
     }));
     // Scroll to the bottom of the chat.

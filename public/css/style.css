@@ -304,7 +304,8 @@ ul {
     color: salmon;
 }
 
-#chat li #disconnect {
+#chat li #disconnect,
+#chat li #won {
     color: black;
     background: #f5f7fb;
     border-radius: 25px;

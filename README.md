@@ -93,6 +93,7 @@ On the side is the user list. The list shows all users who are logged into the c
 - [X] User can see the current score of the users
 - [X] Chats are saved
 - [X] User can see the time when the message was send
+- [X] User can see the previous messages that were send in the chat
 
 #### Should have
 - [X] Works on Ipad
@@ -100,9 +101,9 @@ On the side is the user list. The list shows all users who are logged into the c
 - [X] Offline mode
 - [ ] User can see the words he/she has guessed
 - [ ] User can see when someone join the room
-- [ ] User can see when someone leaves the room
-- [ ] When player reaches 10 points the game is over.
-- [ ] User can see the winner of the game
+- [X] User can see when someone leaves the room
+- [X] User can see the winner of the game
+- [ ] Game restarts when the winner is known
 
 #### Could have
 - [ ] Security
