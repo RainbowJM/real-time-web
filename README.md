@@ -2,6 +2,7 @@
 ## Table of content
 - [Papiamentu Trivia](#papiamentu-trivia)
   - [Table of content](#table-of-content)
+  - [Live demo](#live-demo)
   - [Description](#description)
   - [Proof of Concept](#proof-of-concept)
     - [Idea 1 - Guess the artist](#idea-1---guess-the-artist)
@@ -32,8 +33,12 @@
   - [Data modeling](#data-modeling)
   - [Real time events](#real-time-events)
   - [UI stack](#ui-stack)
-  - [Live demo](#live-demo)
 ---
+## Live demo
+The best live demo version of this project can be found [here](https://humble-morning-production.up.railway.app/).
+
+The other version has some problemn with the sockets but you can still use it [here](https://papiamentu-trivia.adaptable.app/).
+
 ## Description
 The assigment was to develop a chat that receives and distributes data in real time. 
 The real time application is a application that conside of a chat room.
@@ -99,6 +104,7 @@ On the side is the user list. The list shows all users who are logged into the c
 - [ ] Loading state
 - [ ] User can see when someone join the room
 - [ ] User can see when someone leaves the room
+- [ ] When player reaches 10 points the game is over.
 
 #### Could have
 - [ ] The application has rooms
@@ -271,6 +277,10 @@ The API has a table with 22 words in it.
 The words are in Papiamentu and have a description in English.
 The API is used to get a random word from the table.
 The code below is used to get a random word from the table.
+
+The challenge of creating your own API is that you have to figure iut how to create it and how to use it.
+The API that was created was not that hard to create, but it was hard to figure out how to use it.
+
 ``` javascript
 async function getWord() {
     currentWordId = Math.floor(Math.random() * 22) + 1;
@@ -517,8 +527,3 @@ The error state is used to check if the user is connected to the server. If not 
     color: #721c24;
 }
 ```
-
-## Live demo
-The best live demo version of this project can be found [here](https://humble-morning-production.up.railway.app/).
-
-The other version has some problemn with the sockets but you can still use it [here](https://papiamentu-trivia.adaptable.app/).
