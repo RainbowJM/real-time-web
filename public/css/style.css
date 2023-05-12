@@ -176,6 +176,10 @@ form button {
     height: 11.5em;
 }
 
+#trivia #players::-webkit-scrollbar{
+    display: none;
+}
+
 #players #connected {
     width: 50%;
     font-size: small;
