@@ -304,6 +304,15 @@ ul {
     color: salmon;
 }
 
+#chat li #disconnect {
+    color: black;
+    background: #f5f7fb;
+    border-radius: 25px;
+    width: 90%;
+    height: 1em;
+    font-size: medium;
+}
+
 #typing {
     font-size: small;
     margin-top: 8px;

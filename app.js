@@ -149,6 +149,7 @@ io.on("connection", (socket) => {
             if (client[1] == socket.id) {
                 // Remove the user from the list of connected users.
                 onlinePlayers.splice(index, 1)
+                io.emit('disconnected', client[0]);
             }
         })
         // Emit the list of connected users.

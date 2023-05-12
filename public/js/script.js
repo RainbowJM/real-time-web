@@ -10,7 +10,6 @@ const submitName = document.querySelector('#name-button');
 const connectedUser = document.querySelector('section#players p#connected');
 const playersList = document.querySelector('section#players ul');
 const offlineError = document.querySelector('.error');
-console.log(offlineError);
 const word = document.querySelector('section#question-answers-options p#question');
 const descriptionElement = document.querySelector('section#question-answers-options p#description')
 let names = document.querySelector('section#players ul');
@@ -161,6 +160,17 @@ socket.on('wrong answer', () => {
     setTimeout(() => {
         descriptionElement.innerHTML = '';
     }, 2000);
+});
+
+socket.on('disconnected', (client) => {
+    console.log(client);
+    messages.appendChild(Object.assign(document.createElement('li'), {
+        innerHTML: `<section id='disconnect'>
+        <p class="message">${client} has left</p>
+        </section>`
+    }));
+    // Scroll to the bottom of the chat.
+    messages.scrollTop = messages.scrollHeight;
 });
 
 function add(message, name, id, time, self) {
