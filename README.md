@@ -88,17 +88,17 @@ On the side is the user list. The list shows all users who are logged into the c
 - [X] User can see the current score of the users
 - [X] Chats are saved
 - [X] User can see the time when the message was send
-- [] User can see when someone join the room
-- [] User can see when someone leaves the room
 
 #### Should have
 - [ ] Instruction when join the room how the game works
 - [X] Works on Ipad
-- [ ] Works on mobile
+- [X] Works on mobile
 - [X] Offline mode
 - [ ] User can see the words he/she has guessed
 - [ ] Security
 - [ ] Loading state
+- [ ] User can see when someone join the room
+- [ ] User can see when someone leaves the room
 
 #### Could have
 - [ ] The application has rooms
@@ -478,11 +478,47 @@ The real time events that are used in this project are the following:
 The full code of the server is in the file `app.js` and the client code is in the file `script.js`.
 At most of the function there is a comment that explains what the function does.
 ## UI stack
+The UI stack of this project is as follows:
+
+Error state:
+```javascript
+socket.on('connect', () => {
+    checkSocketConnection();
+    setInterval(checkSocketConnection(),500)
+});
+
+function checkSocketConnection() {
+    if (socket.connected) {
+        offlineError.classList.remove('socket-disconnected');
+    } else {
+        if (!socket.connected) {
+            console.log('Socket is disconnected');
+            
+            offlineError.innerHTML = ` 
+        <h2 class="hit-the-floor">504</h2>
+        <p> <b>Your are offline</b> <br> You are offline, please check your internet connection</p>`;
+        offlineError.classList.add('socket-disconnected');
+        }
+    }
+}
+```
+
+The error state is used to check if the user is connected to the server. If not it will show a error message.
+
+```css
+.error {
+    display: none;
+}
+
+.error.socket-disconnected {
+    border: none;
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+}
+```
 
 ## Live demo
 The best live demo version of this project can be found [here](https://humble-morning-production.up.railway.app/).
 
 The other version has some problemn with the sockets but you can still use it [here](https://papiamentu-trivia.adaptable.app/).
-
-
-
