@@ -95,21 +95,23 @@ On the side is the user list. The list shows all users who are logged into the c
 - [X] User can see the time when the message was send
 
 #### Should have
-- [ ] Instruction when join the room how the game works
 - [X] Works on Ipad
 - [X] Works on mobile
 - [X] Offline mode
 - [ ] User can see the words he/she has guessed
-- [ ] Security
 - [ ] Loading state
 - [ ] User can see when someone join the room
 - [ ] User can see when someone leaves the room
 - [ ] When player reaches 10 points the game is over.
+- [ ] User can see the winner of the game
 
 #### Could have
+- [ ] Security
+- [ ] User can not use a username that is already in use
 - [ ] The application has rooms
 - [ ] User can see which room he/she is in
 - [ ] User can see which room other users are in
+- [ ] Instruction when join the room how the game works
 
 #### Would have
 - [ ] User can added more words to the game
