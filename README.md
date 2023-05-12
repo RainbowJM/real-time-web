@@ -99,7 +99,6 @@ On the side is the user list. The list shows all users who are logged into the c
 - [X] Works on mobile
 - [X] Offline mode
 - [ ] User can see the words he/she has guessed
-- [ ] Loading state
 - [ ] User can see when someone join the room
 - [ ] User can see when someone leaves the room
 - [ ] When player reaches 10 points the game is over.
