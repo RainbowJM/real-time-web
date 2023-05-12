@@ -445,7 +445,7 @@ For a more detailed documentation of the API please visit [here](https://documen
 ## Data life cycle
 The data life cycle of this project is as follows:
 
-<img width="445" alt="Screenshot 2023-05-12 at 10 42 06" src="https://github.com/RainbowJM/real-time-web/assets/59873140/39485932-186a-4320-8f0a-820d33395691">
+<img width="522" alt="Screenshot 2023-05-12 at 10 55 46" src="https://github.com/RainbowJM/real-time-web/assets/59873140/f7a63cb2-260b-4298-87cb-8ca7ee3d845b">
 
 ## Data modeling
 The data model for this project is very simple. It consists of a single table with the following columns:
