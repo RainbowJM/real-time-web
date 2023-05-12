@@ -20,6 +20,7 @@ let correct = false;
 let currentWordEng;
 let currentWordPap;
 let description;
+let last;
 
 if (submitMessage) {
     submitMessage.addEventListener('click', event => {
