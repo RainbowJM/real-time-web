@@ -486,6 +486,8 @@ The real time events that are used in this project are the following:
 -  `user`: This event is used to send the user data to the server.
 -  `users`: This event is used to send the users data to the client.
 -  `connect`: This event checks if the user is connected to the server. If not it will go to the offline mode/page.
+-  `disconnected`: This event checks if the user is disconnected from the server. If so it give a notification that the user left in the chat.
+-  `game won`: This event is used when the game is won. It will give a notification who won the game.
 
 The full code of the server is in the file `app.js` and the client code is in the file `script.js`.
 At most of the function there is a comment that explains what the function does.
